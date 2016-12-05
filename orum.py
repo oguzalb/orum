@@ -17,10 +17,13 @@ class Node(object):
 
     def matches(self, qnode):
         matches = defaultdict(list)
-        is_match = all(
+
+        if not all((label in self.labels for label in qnode.labels)):
+            return {}, False
+
+        if not all(
             (field in self.props and self.props[field] == value
-             for (field, value) in qnode.props.iteritems()))
-        if not is_match:
+             for (field, value) in qnode.props.iteritems())):
             return {}, False
 
         for rel_qname, rel_qnodes in qnode.rels.iteritems():
@@ -33,7 +36,7 @@ class Node(object):
                         return {}, False
                     for key, lst in sub_matches.iteritems():
                         matches[key].extend(sub_matches[key])
-        if qnode.alias and is_match:
+        if qnode.alias:
             matches[qnode.alias].append(self)
         return matches, True
 
