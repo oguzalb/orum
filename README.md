@@ -3,7 +3,7 @@
 
 This is a pet project to understand how graph database stuff works
 
-Doesn't have a parser, has a dsl instead
+Doesn't have a parser, you will need to translate your query into Python objects and run them
 
 This is how queries should be run (You can see the examples in tests also)
 
